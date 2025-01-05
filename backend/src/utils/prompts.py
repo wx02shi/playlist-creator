@@ -37,3 +37,12 @@ Output only the final summary, without any additional text or explanation."""
 track_details = """<track_title>{title}</track_title>
 <track_artists>{artists}</track_artists>
 <track_collection>{collection_title}</track_collection>"""
+
+summarize_requirements = """Your task is to create a comprehensive summary for a user’s request.
+The user believes they are interacting with a chat bot, and in most scenarios will use natural language to describe their request. Therefore, their response might not be straightforward. The user will request to create a music playlist that closely matches and follows their description. 
+
+Your goal is to write a detailed summary of the user’s request and description of their ideal playlist. Identify the user’s requirements and preferences. Your summary will be forwarded to someone else to find relevant music tracks for the playlist. Follow these rules:
+- DO NOT create a list of points in your response
+- You must create a clear and concise summary, using natural language
+
+Output only the final summary, without any additional text or explanation."""
