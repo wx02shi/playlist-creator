@@ -38,11 +38,70 @@ track_details = """<track_title>{title}</track_title>
 <track_artists>{artists}</track_artists>
 <track_collection>{collection_title}</track_collection>"""
 
-summarize_requirements = """Your task is to create a comprehensive summary for a user’s request.
-The user believes they are interacting with a chat bot, and in most scenarios will use natural language to describe their request. Therefore, their response might not be straightforward. The user will request to create a music playlist that closely matches and follows their description. 
 
-Your goal is to write a detailed summary of the user’s request and description of their ideal playlist. Identify the user’s requirements and preferences. Your summary will be forwarded to someone else to find relevant music tracks for the playlist. Follow these rules:
-- DO NOT create a list of points in your response
-- You must create a clear and concise summary, using natural language
+summarize_requirements = """Your task is to create a comprehensive summary for a user’s request.
+The user believes they are interacting with a chat bot, but you are not the chat bot. You are an intermediary who will create a summary of the user's request, which will be passed to a request handler agent.
+The request handler agent does not interact with the user, so be thorough, concise, and descriptive in your summary so that they can understand all of the user's request.
+The user will request to create a music playlist that closely matches and follows their description. 
+
+Your goal is to write a detailed summary of the user’s request and description of their ideal playlist. Identify the user’s requirements and preferences. Follow these rules:
+- DO NOT respond to the user’s request. Create a clear and concise summary of their requirements
+- DO NOT create a list of points in your response. Use in natural language
 
 Output only the final summary, without any additional text or explanation."""
+
+update_requirements_summary = """Your task is to refine a comprehensive summary of a user’s request.
+The user believes they are interacting with a chat bot, but you are not the chat bot. You are an intermediary who will create a summary of the user's request, which will be passed to the actual chat bot. 
+The request handler agent does not interact with the user, so be thorough, concise, and descriptive in your summary so that they can understand all of the user's request.
+The user will request to create a music playlist that closely matches and follows their description. 
+The user believes they are continuing their conversation with the chat bot, and are looking to change their requirements for their playlist.
+
+The following is a summary of the user's previous requirements:
+<summary>
+{summary}
+</summary>
+
+Your goal is to update the detailed summary of the user’s request and description of their ideal playlist. Identify the user’s new requirements and preferences. Follow these rules:
+- DO NOT respond to the user’s request. Create a clear and concise summary of their requirements
+- DO NOT create a list of points in your response. Use in natural language
+- Update the summary with the the new requirements
+- Replace any old requirements if the new ones contradict 
+
+Output only the final summary, without any additional text or explanation.
+"""
+
+inject_pinned = """Your task is to create a concise summary of some given music tracks.
+For context, a user has requested to create a music playlist that closely matches and follows their description.
+The user has pinned some tracks, indicating that those ones highly match their preference.
+
+You will receive a list of pinned tracks in the following format:
+<pinned_tracks>
+[
+    {
+        "title": "Track Title",
+        "artists": ["Artist 1", "Artist 2"],
+        "collection": "Collection Title",
+        "description": "Description of the track"
+    },
+    {
+        "title": "Track Title",
+        "artists": ["Artist 1", "Artist 2"],
+        "collection": "Collection Title",
+        "description": "Description of the track"
+    }
+]
+</pinned_tracks>
+
+Your goals is to write a detailed summary of user's the pinned and preferred tracks. Identify similarities between the descriptions of the pinned tracks.
+
+Wrap your analysis in <analysis> tags. Do the following:
+- Identify any common genres, moods, or themes across the pinned tracks
+- Identify any common instruments and sounds
+- Identify any common lyrics or messages
+- Identify any common artist intent or meaning
+- Identify any common artists or collections
+
+After your analysis, provide your final summary of all the details you discussed.
+
+Output only the final summary, without any additional text or explanation.
+"""
