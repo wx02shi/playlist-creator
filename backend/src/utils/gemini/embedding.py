@@ -1,6 +1,6 @@
 import os
 from google import genai
-from src.utils.gen_models import GenerationModels
+from src.utils.gemini.gen_models import GenerationModels
 
 
 def generate_embedding(text: str, model=GenerationModels.TEXT_EMBEDDING_004):

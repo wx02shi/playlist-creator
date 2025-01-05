@@ -1,0 +1,2 @@
+These functions were only used during prototyping phases
+It specifically required the use of Google AI SDK, to enable audio file input for gemini-2.0-flash-exp

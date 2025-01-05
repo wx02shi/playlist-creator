@@ -4,7 +4,7 @@ from google import genai
 from google.genai import types
 
 from src.models.audio import Audio
-from src.utils.gen_models import GenerationModels
+from src.utils.gemini.gen_models import GenerationModels
 from src.utils.prompts import description_prompt, track_details
 
 
