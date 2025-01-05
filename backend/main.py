@@ -1,10 +1,26 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from src.schemas.requests import ChatRequest
-from src.services.chat import chat as chat_service, create_chat as create_chat_service
+from src.services.chat import (
+    chat as chat_service,
+    create_chat as create_chat_service,
+    get_history as get_history_service,
+    get_tracks as get_tracks_service,
+    get_all_chats as get_all_chats_service,
+)
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 load_dotenv()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -20,3 +36,18 @@ def create_chat():
 @app.post("/chat/{convoId}")
 async def chat(convoId: str, msg_req: ChatRequest):
     return await chat_service(msg_req.content, convoId)
+
+
+@app.get("/chat/{convoId}/tracks")
+def get_tracks(convoId: str):
+    return get_tracks_service(convoId)
+
+
+@app.get("/chat/{convoId}")
+def get_history(convoId: str):
+    return get_history_service(convoId)
+
+
+@app.get("/all-chats")
+def get_all_chats():
+    return get_all_chats_service()

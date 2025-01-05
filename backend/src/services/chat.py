@@ -12,6 +12,7 @@ from src.utils.prompts import (
     compare_summaries,
 )
 from src.utils.parse_str_embed import embed_str_to_list
+from src.utils.temp_embed import temp
 
 
 def create_chat() -> ConversationBaseResponse:
@@ -31,9 +32,12 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
     if convo.pinned and len(convo.pinned) > 0:
         new_req_summary = _inject_pinned_desc(convo, new_req_summary)
 
-    summary_embedding = embed_message(new_req_summary, input_type="search_query")
+    # TODO: re-enable Cohere calls when finalized
+    # summary_embedding = embed_message(new_req_summary, input_type="search_query")
+    summary_embedding = temp
     retrieved_tracks = _retrieve_tracks(summary_embedding, db_client=db_client)
-    reranked_tracks = _rerank_tracks(new_req_summary, retrieved_tracks)
+    # reranked_tracks = _rerank_tracks(new_req_summary, retrieved_tracks)
+    reranked_tracks = retrieved_tracks
 
     chat_response = _compare_summaries(msg, convo.req_summary, new_req_summary)
 
@@ -155,3 +159,51 @@ def _update_convo(
     convo = update_suggested(retrieved_tracks, convo, db_client=db_client)
 
     return convo, assistant_msg
+
+
+def get_history(convo_id: str):
+    db_client = get_db_client()
+    convo = get_convo(convo_id, db_client=db_client)
+    convo = hydrate_history(convo, db_client=db_client)
+    res = [Message(**msg.model_dump()) for msg in convo.history]
+    return res
+
+
+def get_tracks(convo_id: str):
+    db_client = get_db_client()
+    convo = get_convo(convo_id, db_client=db_client)
+    convo = hydrate_suggested(convo, db_client=db_client)
+    convo = hydrate_pinned(convo, db_client=db_client)
+    res = {
+        "suggested": [
+            {
+                "title": track.title,
+                "artists": track.artists,
+                "collection": track.collection,
+                "description": track.description,
+                "id": track.id,
+            }
+            for track in convo.suggested
+        ],
+        "pinned": [
+            {
+                "title": track.title,
+                "artists": track.artists,
+                "collection": track.collection,
+                "description": track.description,
+                "id": track.id,
+            }
+            for track in convo.pinned
+        ],
+    }
+    return res
+
+
+def get_all_chats():
+    db_client = get_db_client()
+    convos = get_all_convos(db_client=db_client)
+    res = [ConversationBaseResponse(**convo.model_dump()) for convo in convos]
+    res = {
+        "conversations": res,
+    }
+    return res
