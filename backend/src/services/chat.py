@@ -1,5 +1,5 @@
 from typing import Optional, Tuple
-from src.clients.retrieval import embed_message
+from src.clients.retrieval import embed_message, rerank_query
 from src.database.tracks import embed_retrieve_tracks
 from src.schemas.responses import ChatResponse, ConversationBaseResponse
 from src.clients.db import get_db_client
@@ -11,7 +11,6 @@ from src.utils.prompts import (
     inject_pinned,
     compare_summaries,
 )
-from src.utils.temp_embed import temp
 from src.utils.parse_str_embed import embed_str_to_list
 
 
@@ -32,11 +31,11 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
     if convo.pinned and len(convo.pinned) > 0:
         new_req_summary = _inject_pinned_desc(convo, new_req_summary)
 
-    # summary_embedding = embed_message(new_req_summary, input_type="search_query")
-    summary_embedding = temp
+    summary_embedding = embed_message(new_req_summary, input_type="search_query")
     retrieved_tracks = _retrieve_tracks(summary_embedding, db_client=db_client)
 
     print(len(retrieved_tracks))
+    reranked_tracks = _rerank_tracks(new_req_summary, retrieved_tracks)
 
     chat_response = _compare_summaries(msg, convo.req_summary, new_req_summary)
 
@@ -46,7 +45,7 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
         new_req_summary,
         summary_embedding,
         chat_response,
-        retrieved_tracks,
+        reranked_tracks,
         db_client=db_client,
     )
 
@@ -110,6 +109,13 @@ def _retrieve_tracks(summary_embedding: list[float], db_client: Client) -> list[
         for track in retrieved_tracks
     ]
     return res
+
+
+def _rerank_tracks(summary: str, retrieved_tracks: list[Audio]) -> list[Audio]:
+    descriptions = [track.description for track in retrieved_tracks]
+    results = rerank_query(summary, descriptions)
+    reranked_tracks = [retrieved_tracks[result["index"]] for result in results]
+    return reranked_tracks
 
 
 def _compare_summaries(msg: str, old_summary: str, new_summary: str) -> str:

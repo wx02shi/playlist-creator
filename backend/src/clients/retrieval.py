@@ -1,5 +1,5 @@
 from typing import Optional, Union
-from litellm import embedding
+from litellm import embedding, rerank
 
 
 def embed_message(
@@ -29,3 +29,12 @@ def embed_message(
     if is_batch:
         return [r["embedding"] for r in response.data]
     return response.data[0]["embedding"]
+
+
+def rerank_query(
+    query: str, documents: list[str], top_n: int = 5, model="cohere/rerank-english-v3.0"
+):
+    print("STARTING RERANKING ...")
+    res = rerank(model=model, query=query, documents=documents, top_n=top_n)
+    print("RERANKING RESPONSE: ", res)
+    return res.results
