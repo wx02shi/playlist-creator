@@ -2,6 +2,7 @@ from litellm import completion
 
 
 def helper_agent_completion(instructions, msg, model="gemini/gemini-2.0-flash-exp"):
+    print("STARTING AGENT COMPLETION ...")
     response = completion(
         model=model,
         messages=[
@@ -9,4 +10,5 @@ def helper_agent_completion(instructions, msg, model="gemini/gemini-2.0-flash-ex
             {"role": "user", "content": msg},
         ],
     )
-    return response["messages"][0]["content"]
+    print("COMPLETION RESPONSE: ", response)
+    return response.choices[0].message.content

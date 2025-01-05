@@ -1,7 +1,7 @@
 from typing import Optional
 
 from supabase import Client
-from src.clients.db import get_db_client, use_db_client
+from src.clients.db import use_db_client
 from src.models.audio import AudioBase
 
 

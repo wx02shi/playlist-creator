@@ -11,6 +11,7 @@ class Conversation(BaseModel):
     res_summary: Optional[str] = None
     topic_summary: Optional[str] = None
     # Optional for the purpose of run-time hydration
+    suggested: Optional[list[Audio]] = None
     pinned: Optional[list[Audio]] = None
     discarded: Optional[list[Audio]] = None
     history: Optional[list[Message]] = None

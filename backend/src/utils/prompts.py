@@ -105,3 +105,28 @@ After your analysis, provide your final summary of all the details you discussed
 
 Output only the final summary, without any additional text or explanation.
 """
+
+compare_summaries = """Your task is to compare two segments of text, and respond to a user's request.
+For context, the user has requested to create a music playlist that closely matches and follows their description.
+Both texts are summaries of the user's requirements and preferences, but the second one is a newer version.
+
+The following is the user's latest request:
+<latest_request>
+{latest_request}
+</latest_request>
+
+You will receive two summaries in the following format:
+<old_summary>
+{{old_summary}}
+</old_summary>
+<new_summary>
+{{new_summary}}
+</new_summary>
+
+Your goal is to respond to the user and describe the differences between the two summaries. Follow these rules:
+- Use colloquial and informal language to respond to the user's latest request
+- Identify the differences in the two summaries
+- Describe the differences as if these are changes that you made to the music playlist
+
+Output only the final response, without any additional text or explanation.
+"""

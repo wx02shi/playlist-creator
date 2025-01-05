@@ -1,6 +1,7 @@
 from typing import Optional, Tuple
-from clients.retrieval import embed_message
-from database.tracks import embed_retrieve_tracks
+from src.clients.retrieval import embed_message
+from src.database.tracks import embed_retrieve_tracks
+from src.schemas.responses import ChatResponse, ConversationBaseResponse
 from src.clients.db import get_db_client
 from src.clients.llm import helper_agent_completion
 from src.database.conversation import *
@@ -8,10 +9,20 @@ from src.utils.prompts import (
     summarize_requirements,
     update_requirements_summary,
     inject_pinned,
+    compare_summaries,
 )
+from src.utils.temp_embed import temp
 
 
-async def chat(msg: str, convo_id: Optional[str]) -> Tuple[Conversation, Message]:
+def create_chat() -> ConversationBaseResponse:
+    db_client = get_db_client()
+    convo = create_convo(db_client=db_client)
+    res = ConversationBaseResponse(**convo.model_dump())
+    return res
+
+
+async def chat(msg: str, convo_id: str) -> ChatResponse:
+    print("chatting\n\n\n\n\n\n")
     db_client = get_db_client()
     convo, is_first_msg = _init_convo(convo_id, db_client=db_client)
 
@@ -21,26 +32,34 @@ async def chat(msg: str, convo_id: Optional[str]) -> Tuple[Conversation, Message
         new_req_summary = _inject_pinned_desc(convo, new_req_summary)
 
     summary_embedding = embed_message(new_req_summary, input_type="search_query")
+    retrieved_tracks = await embed_retrieve_tracks(
+        summary_embedding, db_client=db_client
+    )
 
-    retrieved_tracks = embed_retrieve_tracks(summary_embedding, db_client=db_client)
+    chat_response = _compare_summaries(msg, convo.req_summary, new_req_summary)
 
-    # If the summary was updated, create a comparison of the last chat response and the new chat response, and return that instead
+    convo, chat_msg = _update_convo(
+        convo,
+        new_req_summary,
+        summary_embedding,
+        chat_response,
+        retrieved_tracks,
+        db_client=db_client,
+    )
 
-    res = None
-
+    res = ChatResponse(**chat_msg.dict())
     return res
 
 
+# HELPERS
 def _init_convo(convo_id: Optional[str], db_client) -> Tuple[Conversation, bool]:
-    is_first_msg = convo_id is None
-    if is_first_msg:
-        convo = create_convo(db_client)
-    else:
-        convo = get_convo(db_client, convo_id)
+    convo = get_convo(convo_id, db_client=db_client)
+    convo = hydrate_history(convo, db_client=db_client)
+    is_first_msg = len(convo.history) == 0
 
-    convo = hydrate_history(db_client, convo)
-    convo = hydrate_pinned(db_client, convo)
-    convo = hydrate_discarded(db_client, convo)
+    convo = hydrate_suggested(convo, db_client=db_client)
+    convo = hydrate_pinned(convo, db_client=db_client)
+    convo = hydrate_discarded(convo, db_client=db_client)
 
     return convo, is_first_msg
 
@@ -55,7 +74,7 @@ def _summarize_reqs(msg: str, convo: Conversation, is_first_msg: bool) -> str:
     return req_summary
 
 
-def _inject_pinned_desc(convo: Conversation, req_summary) -> str:
+def _inject_pinned_desc(convo: Conversation, req_summary: str) -> str:
     assert convo.pinned
     pinned = [
         {
@@ -72,3 +91,44 @@ def _inject_pinned_desc(convo: Conversation, req_summary) -> str:
         + pinned_summary
     )
     return req_summary
+
+
+def _compare_summaries(msg: str, old_summary: str, new_summary: str) -> str:
+    instructions = compare_summaries.format(latest_request=msg)
+    summaries = f"<old_summary>\n{old_summary}\n</old_summary>\n<new_summary>\n{new_summary}\n</new_summary>"
+    response = helper_agent_completion(instructions, summaries)
+    return response
+
+
+def _update_convo(
+    convo: Conversation,
+    user_query: str,
+    new_req_summary: str,
+    new_req_summary_embedding: list[float],
+    chat_response: str,
+    retrieved_tracks: list[Audio],
+    db_client: Client,
+) -> Tuple[Conversation, Message]:
+    # update latest summary
+    convo = update_summary(convo, new_req_summary, db_client=db_client)
+
+    # update message history
+    user_msg = create_msg(
+        user_query,
+        convo,
+        role="user",
+        db_client=db_client,
+    )
+    assistant_msg = create_msg(
+        chat_response,
+        convo,
+        role="assistant",
+        db_client=db_client,
+        embedding=new_req_summary_embedding,
+    )
+    convo = hydrate_history(convo, db_client=db_client)
+
+    # update tracks
+    convo = update_suggested(retrieved_tracks, convo, db_client=db_client)
+
+    return convo, assistant_msg
