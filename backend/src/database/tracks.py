@@ -27,11 +27,12 @@ def create_track(
 
 
 @use_db_client
-async def embed_retrieve_tracks(
-    query_embedding: list[float], db_client: Client, threshold=0.78, count=10
+def embed_retrieve_tracks(
+    query_embedding: list[float], db_client: Client, threshold=0.0, count=10
 ):
-    res = await db_client.rpc(
-        "get_similar_tracks",
+    print("RETRIEVING RELEVANT TRACKS")
+    res = db_client.rpc(
+        "embed_search_tracks",
         {
             "query_embedding": query_embedding,
             "match_threshold": threshold,

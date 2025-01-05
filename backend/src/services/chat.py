@@ -12,6 +12,7 @@ from src.utils.prompts import (
     compare_summaries,
 )
 from src.utils.temp_embed import temp
+from src.utils.parse_str_embed import embed_str_to_list
 
 
 def create_chat() -> ConversationBaseResponse:
@@ -31,15 +32,17 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
     if convo.pinned and len(convo.pinned) > 0:
         new_req_summary = _inject_pinned_desc(convo, new_req_summary)
 
-    summary_embedding = embed_message(new_req_summary, input_type="search_query")
-    retrieved_tracks = await embed_retrieve_tracks(
-        summary_embedding, db_client=db_client
-    )
+    # summary_embedding = embed_message(new_req_summary, input_type="search_query")
+    summary_embedding = temp
+    retrieved_tracks = _retrieve_tracks(summary_embedding, db_client=db_client)
+
+    print(len(retrieved_tracks))
 
     chat_response = _compare_summaries(msg, convo.req_summary, new_req_summary)
 
     convo, chat_msg = _update_convo(
         convo,
+        msg,
         new_req_summary,
         summary_embedding,
         chat_response,
@@ -47,7 +50,7 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
         db_client=db_client,
     )
 
-    res = ChatResponse(**chat_msg.dict())
+    res = ChatResponse(**chat_msg.model_dump())
     return res
 
 
@@ -91,6 +94,22 @@ def _inject_pinned_desc(convo: Conversation, req_summary: str) -> str:
         + pinned_summary
     )
     return req_summary
+
+
+def _retrieve_tracks(summary_embedding: list[float], db_client: Client) -> list[Audio]:
+    retrieved_tracks = embed_retrieve_tracks(summary_embedding, db_client=db_client)
+    res = [
+        Audio(
+            id=track["id"],
+            title=track["name"],
+            artists=track["artists"],
+            collection=track["collection"],
+            description=track["description"],
+            embedding=embed_str_to_list(track["embedding"]),
+        )
+        for track in retrieved_tracks
+    ]
+    return res
 
 
 def _compare_summaries(msg: str, old_summary: str, new_summary: str) -> str:

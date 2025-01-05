@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 sys.path.append("..")
 from src.clients.retrieval import embed_message
 from src.clients.db import get_db_client
-from src.utils.temp_embed import temp
 
 
 def _split_output(output: str):

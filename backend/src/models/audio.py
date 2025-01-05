@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class AudioBase(BaseModel):
-    path: str
+    path: Optional[str] = None
     title: str
     artists: list[str]
     collection: Optional[str]
