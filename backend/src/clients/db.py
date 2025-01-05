@@ -22,7 +22,6 @@ def use_db_client(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if "db_client" not in kwargs or kwargs["db_client"] is None:
-            print("Creating db client")
             kwargs["db_client"] = get_db_client()
         return func(*args, **kwargs)
 

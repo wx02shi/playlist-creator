@@ -22,7 +22,7 @@ def create_chat() -> ConversationBaseResponse:
 
 
 async def chat(msg: str, convo_id: str) -> ChatResponse:
-    print("chatting\n\n\n\n\n\n")
+    print("chatting...")
     db_client = get_db_client()
     convo, is_first_msg = _init_convo(convo_id, db_client=db_client)
 
@@ -33,8 +33,6 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
 
     summary_embedding = embed_message(new_req_summary, input_type="search_query")
     retrieved_tracks = _retrieve_tracks(summary_embedding, db_client=db_client)
-
-    print(len(retrieved_tracks))
     reranked_tracks = _rerank_tracks(new_req_summary, retrieved_tracks)
 
     chat_response = _compare_summaries(msg, convo.req_summary, new_req_summary)

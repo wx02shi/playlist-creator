@@ -174,9 +174,7 @@ def update_suggested(
     tracks: list[Audio], convo: Conversation, db_client: Client
 ) -> Conversation:
     upserts = [{"convo_id": convo.id, "track_id": track.id} for track in tracks]
-    print(upserts)
     res = db_client.table("Suggested").upsert(upserts).execute()
     data = res.data
-    print(data[0])
     convo = hydrate_suggested(convo, db_client=db_client)
     return convo

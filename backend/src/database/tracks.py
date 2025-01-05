@@ -39,4 +39,5 @@ def embed_retrieve_tracks(
             "match_count": count,
         },
     ).execute()
+    print("RETRIEVED RELEVANT TRACKS", res.data)
     return res.data
