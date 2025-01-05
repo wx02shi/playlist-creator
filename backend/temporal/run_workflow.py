@@ -12,7 +12,7 @@ parent_dir = os.path.dirname(current_dir)
 
 # Add the parent directory to sys.path
 sys.path.insert(0, parent_dir)
-from src.models.audio import Audio
+from src.models.audio import AudioBase
 
 
 async def main():
@@ -25,7 +25,7 @@ async def main():
 
     data = data["tracks"]
     audio_to_process = [
-        Audio(
+        AudioBase(
             title=d["title"],
             artists=d["artists"],
             collection=d.get("collection", None),

@@ -16,7 +16,7 @@ parent_dir = os.path.dirname(current_dir)
 
 # Add the parent directory to sys.path
 sys.path.insert(0, parent_dir)
-from src.models.audio import Audio
+from src.models.audio import AudioBase
 
 # Import activity through sandbox
 with workflow.unsafe.imports_passed_through():
@@ -26,7 +26,7 @@ with workflow.unsafe.imports_passed_through():
 @workflow.defn
 class BatchAudioProcessing:
     @workflow.run
-    async def run(self, audios: List[Audio]):
+    async def run(self, audios: List[AudioBase]):
 
         # Process files in parallel
         tasks = []

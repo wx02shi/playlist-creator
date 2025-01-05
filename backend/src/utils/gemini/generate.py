@@ -3,13 +3,13 @@ import os
 from google import genai
 from google.genai import types
 
-from src.models.audio import Audio
+from src.models.audio import AudioBase
 from src.utils.gemini.gen_models import GenerationModels
 from src.utils.prompts import description_prompt, track_details
 
 
 def generate_audio_description(
-    audio: Audio, model=GenerationModels.GEMINI_2_0_FLASH_EXP
+    audio: AudioBase, model=GenerationModels.GEMINI_2_0_FLASH_EXP
 ):
     genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -32,7 +32,7 @@ def _get_config():
     )
 
 
-def _format_track_details(audio: Audio):
+def _format_track_details(audio: AudioBase):
     title = audio.title
     artists = audio.artists
     collection_title = ""
@@ -44,7 +44,7 @@ def _format_track_details(audio: Audio):
     )
 
 
-def _create_audio_part(audio: Audio):
+def _create_audio_part(audio: AudioBase):
     filename = audio.path
 
     with open(filename, "rb") as f:

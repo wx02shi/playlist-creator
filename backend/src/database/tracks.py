@@ -1,8 +1,8 @@
-from src.models.audio import Audio
+from src.models.audio import AudioBase
 from src.clients.db import db_client
 
 
-def create_track(audio: Audio, description: str, embedding: list[float]):
+def create_track(audio: AudioBase, description: str, embedding: list[float]):
     res = (
         db_client.table("Tracks")
         .insert(

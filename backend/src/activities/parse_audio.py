@@ -1,5 +1,5 @@
 from src.database.tracks import create_track
-from src.models.audio import Audio
+from src.models.audio import AudioBase
 from src.utils.gemini.embedding import generate_embedding
 from src.utils.gemini.generate import generate_audio_description
 
@@ -7,7 +7,7 @@ from temporalio import activity
 
 
 @activity.defn
-async def parse_audio(audio: Audio):
+async def parse_audio(audio: AudioBase):
     res = generate_audio_description(audio)
     _, description = _split_output(res)
     embedding = generate_embedding(description)

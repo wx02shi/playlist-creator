@@ -1,7 +1,7 @@
 import unittest
 
 from dotenv import load_dotenv
-from src.utils.embedding import generate_embedding
+from src.utils.gemini.embedding import generate_embedding
 
 load_dotenv()
 
