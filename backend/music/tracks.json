@@ -1,0 +1,304 @@
+{
+  "tracks": [
+    {
+      "title": "Mad IQs.",
+      "artists": ["I DONT KNOW HOW BUT THEY FOUND ME"],
+      "collection": "RAZZMATAZZ",
+      "path": "mad_iqs.mp3",
+      "url": "https://music.youtube.com/watch?v=aj4kER98yDE"
+    },
+    {
+      "title": "New Invention.",
+      "artists": ["I DONT KNOW HOW BUT THEY FOUND ME"],
+      "collection": "RAZZMATAZZ",
+      "path": "mad_iqs.mp3",
+      "url": "https://music.youtube.com/watch?v=hgtI2rdBNQw"
+    },
+    {
+      "title": "first person shooter",
+      "artists": ["Drake", "J. Cole"],
+      "path": "first_person_shooter.mp3",
+      "url": "https://music.youtube.com/watch?v=HBgTiMrtEgI"
+    },
+    {
+      "title": "Way 2 Sexy",
+      "artists": ["Drake", "Future", "Young Thug"],
+      "collection": "Certified Lover Boy",
+      "path": "way_2_sexy.mp3",
+      "url": "https://music.youtube.com/watch?v=2UT7L_neb4I"
+    },
+    {
+      "title": "wacced out murals",
+      "artists": ["Kendrick Lamar"],
+      "collection": "GNX",
+      "path": "wacced_out_murals.mp3",
+      "url": "https://music.youtube.com/watch?v=O0Id0olaeFw"
+    },
+    {
+      "title": "squabble up",
+      "artists": ["Kendrick Lamar"],
+      "collection": "GNX",
+      "path": "squabble_up.mp3",
+      "url": "https://music.youtube.com/watch?v=U0KTVVMvcc4"
+    },
+    {
+      "title": "these walls",
+      "artists": ["Kendrick Lamar"],
+      "collection": "To Pimp A Butterfly",
+      "path": "these_walls.mp3",
+      "url": "https://music.youtube.com/watch?v=AHNK4k3Cr24"
+    },
+    {
+      "title": "FE!N",
+      "artists": ["Travis Scott", "Playboi Carti"],
+      "collection": "UTOPIA",
+      "path": "fe!n.mp3",
+      "url": "https://music.youtube.com/watch?v=2nR1zrNzgcY"
+    },
+    {
+      "title": "JUGGERNAUT",
+      "artists": ["Tyler, The Creator", "Lil Uzi Vert", "Pharrell Williams"],
+      "collection": "CALL ME IF YOU GET LOST",
+      "path": "juggernaut.mp3",
+      "url": "https://music.youtube.com/watch?v=pmkYOjJ7qSg"
+    },
+    {
+      "title": "Every Summertime",
+      "artists": ["NIKI"],
+      "collection": "Shang-Chi and The Legend of The Ten Rings: The Album",
+      "path": "every_summertime.mp3",
+      "url": "https://music.youtube.com/watch?v=UyMvBWVGaOA"
+    },
+    {
+      "title": "Fire In The Sky",
+      "artists": ["Anderson .Paak"],
+      "collection": "Shang-Chi and The Legend of The Ten Rings: The Album",
+      "path": "fire_in_the_sky.mp3",
+      "url": "https://music.youtube.com/watch?v=3pZfOHl5F-Y"
+    },
+    {
+      "title": "Glimpse Of Us",
+      "artists": ["Joji"],
+      "collection": "SMITHEREENS",
+      "path": "glimpse_of_us.mp3",
+      "url": "https://music.youtube.com/watch?v=20zVdUxZdwg"
+    },
+    {
+      "title": "SLOW DANCING IN THE DARK",
+      "artists": ["Joji"],
+      "collection": "BALLADS 1",
+      "path": "slow_dancing_in_the_dark.mp3",
+      "url": "https://music.youtube.com/watch?v=LUXu4aTnK7E"
+    },
+    {
+      "title": "Sanctuary",
+      "artists": ["Joji"],
+      "collection": "Nectar",
+      "path": "sanctuary.mp3",
+      "url": "https://music.youtube.com/watch?v=nd1xIiJZwEY"
+    },
+    {
+      "title": "Ditto",
+      "artists": ["NewJeans"],
+      "collection": "OMG",
+      "path": "ditto.mp3",
+      "url": "https://music.youtube.com/watch?v=V6TEcoNUmc8"
+    },
+    {
+      "title": "New Jeans",
+      "artists": ["NewJeans"],
+      "collection": "Super Shy",
+      "path": "new_jeans.mp3",
+      "url": "https://music.youtube.com/watch?v=Krr2u8BUtLw"
+    },
+    {
+      "title": "ETA",
+      "artists": ["NewJeans"],
+      "collection": "Super Shy",
+      "path": "eta.mp3",
+      "url": "https://music.youtube.com/watch?v=XCkpalH6Ppk"
+    },
+    {
+      "title": "Psycho",
+      "artists": ["Red Velvet"],
+      "collection": "'The ReVe Festival' Finale",
+      "path": "psycho.mp3",
+      "url": "https://music.youtube.com/watch?v=PyyT5tHbOLw"
+    },
+    {
+      "title": "What is Love?",
+      "artists": ["TWICE"],
+      "collection": "Summer Nights",
+      "path": "what_is_love.mp3",
+      "url": "https://music.youtube.com/watch?v=w4nihuYVTW0"
+    },
+    {
+      "title": "CALL ME BABY",
+      "artists": ["EXO"],
+      "collection": "EXODUS - The 2nd Album",
+      "path": "call_me_baby_exo.mp3",
+      "url": "https://music.youtube.com/watch?v=Wu8halh9DXs"
+    },
+    {
+      "title": "Dynamite",
+      "artists": ["BTS"],
+      "collection": "BE",
+      "path": "dynamite.mp3",
+      "url": "https://music.youtube.com/watch?v=HaEYUJ2aRHs"
+    },
+    {
+      "title": "Faint",
+      "artists": ["Linkin Park"],
+      "collection": "Meteora",
+      "path": "faint.mp3",
+      "url": "https://music.youtube.com/watch?v=vwxDtaDBP_I"
+    },
+    {
+      "title": "In the End",
+      "artists": ["Linkin Park"],
+      "collection": "Hybrid Theory",
+      "path": "in_the_end.mp3",
+      "url": "https://music.youtube.com/watch?v=Un8Uv1psMOI"
+    },
+    {
+      "title": "Sugar, We're Goin Down",
+      "artists": ["Fall Out Boy"],
+      "collection": "From Under the Cork Tree",
+      "path": "sugar_were_goin_down.mp3",
+      "url": "https://music.youtube.com/watch?v=_2eTNxPxXRc"
+    },
+    {
+      "title": "Thnks fr th Mmrs",
+      "artists": ["Fall Out Boy"],
+      "collection": "Infinity on High",
+      "path": "thnks_fr_th_mmrs.mp3",
+      "url": "https://music.youtube.com/watch?v=j7aQDJLjiD4"
+    },
+    {
+      "title": "That's What You Get",
+      "artists": ["Paramore"],
+      "collection": "Riot!",
+      "path": "thats_what_you_get.mp3",
+      "url": "https://music.youtube.com/watch?v=aVbdEnIolPo"
+    },
+    {
+      "title": "Still into You",
+      "artists": ["Paramore"],
+      "collection": "Paramore",
+      "path": "still_into_you.mp3",
+      "url": "https://music.youtube.com/watch?v=tv7yHglIDsc"
+    },
+    {
+      "title": "What's My Age Again?",
+      "artists": ["blink-182"],
+      "collection": "Enema of the State",
+      "path": "whats_my_age_again.mp3",
+      "url": "https://music.youtube.com/watch?v=BsnddlzfV3A"
+    },
+    {
+      "title": "The Middle",
+      "artists": ["Jimmy Eat World"],
+      "collection": "Bleed American",
+      "path": "the_middle.mp3",
+      "url": "https://music.youtube.com/watch?v=rubpIfLPzvU"
+    },
+    {
+      "title": "Jesus of Suburbia",
+      "artists": ["Green Day"],
+      "collection": "American Idiot",
+      "path": "jesus_of_suburbia.mp3",
+      "url": "https://music.youtube.com/watch?v=XrHjKN2bjb0"
+    },
+    {
+      "title": "The Kill",
+      "artists": ["30 Seconds to Mars"],
+      "collection": "A Beautiful Lie",
+      "path": "the_kill.mp3",
+      "url": "https://music.youtube.com/watch?v=nIxxdRaWoBs"
+    },
+    {
+      "title": "Can You Feel My Heart",
+      "artists": ["Bring Me The Horizon"],
+      "collection": "Sempiternal",
+      "path": "can_you_feel_my_heart.mp3",
+      "url": "https://music.youtube.com/watch?v=UonVoc65dx8"
+    },
+    {
+      "title": "Bohemian Rhapsody",
+      "artists": ["Queen"],
+      "collection": "A Night At The Opera",
+      "path": "bohemian_rhapsody.mp3",
+      "url": "https://music.youtube.com/watch?v=utwMHfDZ6SA"
+    },
+    {
+      "title": "September",
+      "artists": ["Earth, Wind & Fire"],
+      "collection": "The Best of Earth, Wind & Fire, Vol. 1",
+      "path": "september.mp3",
+      "url": "https://music.youtube.com/watch?v=3cKtSlsYVEU"
+    },
+    {
+      "title": "Thunderstruck",
+      "artists": ["AC/DC"],
+      "collection": "The Razors Edge",
+      "path": "thunderstruck.mp3",
+      "url": "https://music.youtube.com/watch?v=lhg9bYNLvOg"
+    },
+    {
+      "title": "Back In Black",
+      "artists": ["AC/DC"],
+      "collection": "Back In Black",
+      "path": "back_in_black.mp3",
+      "url": "https://music.youtube.com/watch?v=9vWNauaZAgg"
+    },
+    {
+      "title": "Great Balls of Fire",
+      "artists": ["Jerry Lee Lewis"],
+      "collection": "Jerry Lee Lewis",
+      "path": "great_balls_of_fire.mp3",
+      "url": "https://music.youtube.com/watch?v=V_FAqr6rP4w"
+    },
+    {
+      "title": "Hotel California",
+      "artists": ["Eagles"],
+      "collection": "Hotel California",
+      "path": "hotel_california.mp3",
+      "url": "https://music.youtube.com/watch?v=-Y1i2vvzv8Y"
+    },
+    {
+      "title": "Pretender",
+      "artists": ["OFFICIAL HIGE DANDISM"],
+      "collection": "Traveler",
+      "path": "pretender.mp3",
+      "url": "https://music.youtube.com/watch?v=37W7Y2RRyiM"
+    },
+    {
+      "title": "Comedy",
+      "artists": ["Gen Hoshino"],
+      "collection": "YELLOW DANCER",
+      "path": "comedy.mp3",
+      "url": "https://music.youtube.com/watch?v=URR_Nv-6MZs"
+    },
+    {
+      "title": "crossing field",
+      "artists": ["LiSA"],
+      "collection": "LANDSPACE",
+      "path": "crossing_field.mp3",
+      "url": "https://music.youtube.com/watch?v=F9GXgPHeKfA"
+    },
+    {
+      "title": "Model",
+      "artists": ["Li Ronghao"],
+      "collection": "Model",
+      "path": "model.mp3",
+      "url": "https://music.youtube.com/watch?v=6XZ6ap8zrsg"
+    },
+    {
+      "title": "still feel.",
+      "artists": ["half•alive"],
+      "collection": "Now, Not Yet",
+      "path": "still_feel.mp3",
+      "url": "https://music.youtube.com/watch?v=ggv-0PBmkcg"
+    }
+  ]
+}

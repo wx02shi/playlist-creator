@@ -1,11 +1,15 @@
-from database.tracks import create_track
-from models.audio import Audio
-from clients.db import db_client
-from utils.embedding import generate_embedding
-from utils.generate import generate_audio_description
+from src.database.tracks import create_track
+from src.models.audio import Audio
+from src.utils.embedding import generate_embedding
+from src.utils.generate import generate_audio_description
+
+from temporalio import activity
 
 
-def parse_audio(audio: Audio):
+@activity.defn
+async def parse_audio(audio: Audio):
+    print("Parsing audio")
+    print(audio)
     res = generate_audio_description(audio)
     analysis, description = _split_output(res)
     embedding = generate_embedding(description)
