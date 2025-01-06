@@ -4,3 +4,4 @@ google-genai
 supabase
 temporalio
 yt-dlp
+litellm
