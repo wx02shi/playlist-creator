@@ -33,11 +33,11 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
         new_req_summary = _inject_pinned_desc(convo, new_req_summary)
 
     # TODO: re-enable Cohere calls when finalized
-    # summary_embedding = embed_message(new_req_summary, input_type="search_query")
-    summary_embedding = temp
+    summary_embedding = embed_message(new_req_summary, input_type="search_query")
+    # summary_embedding = temp
     retrieved_tracks = _retrieve_tracks(summary_embedding, db_client=db_client)
-    # reranked_tracks = _rerank_tracks(new_req_summary, retrieved_tracks)
-    reranked_tracks = retrieved_tracks
+    reranked_tracks = _rerank_tracks(new_req_summary, retrieved_tracks)
+    # reranked_tracks = retrieved_tracks
 
     chat_response = _compare_summaries(msg, convo.req_summary, new_req_summary)
 
