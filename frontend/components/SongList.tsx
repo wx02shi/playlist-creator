@@ -1,11 +1,12 @@
-import { type Track } from "@/lib/api";
+import { type Track, pinTrack } from "@/lib/api";
 
 interface SongListProps {
   suggested: Track[];
   pinned: Track[];
+  onPinSuccess?: () => void;
 }
 
-const SongList = ({ suggested, pinned }: SongListProps) => {
+const SongList = ({ suggested, pinned, onPinSuccess }: SongListProps) => {
   return (
     <div className="flex flex-col">
       <h2 className="text-xl font-bold text-gray-800 mb-6">
@@ -27,7 +28,12 @@ const SongList = ({ suggested, pinned }: SongListProps) => {
               </h3>
               <div className="space-y-4">
                 {suggested.map((song) => (
-                  <SongCard key={song.id} song={song} isPinned={false} />
+                  <SongCard
+                    key={song.id}
+                    song={song}
+                    isPinned={false}
+                    onPinSuccess={onPinSuccess}
+                  />
                 ))}
               </div>
             </div>
@@ -38,9 +44,25 @@ const SongList = ({ suggested, pinned }: SongListProps) => {
   );
 };
 
-const SongCard = ({ song, isPinned }: { song: Track; isPinned: boolean }) => {
-  const handleAdd = () => {
-    console.log(song.id);
+const SongCard = ({
+  song,
+  isPinned,
+  onPinSuccess,
+}: {
+  song: Track;
+  isPinned: boolean;
+  onPinSuccess?: () => void;
+}) => {
+  const handleAdd = async () => {
+    try {
+      // Get conversationId from URL
+      const conversationId = window.location.pathname.split("/").pop() || "";
+      await pinTrack(conversationId, song.id);
+      onPinSuccess?.();
+      // Optionally add some UI feedback here
+    } catch (error) {
+      console.error("Failed to pin track:", error);
+    }
   };
 
   return (

@@ -23,7 +23,7 @@ export interface Message {
 }
 
 export interface Track {
-  id: string;
+  id: number;
   title: string;
   artists: string[];
   collection: {
@@ -93,5 +93,18 @@ export async function sendChatMessage(
     throw new Error("Failed to send chat message");
   }
 
+  return response.json();
+}
+
+export async function pinTrack(conversationId: string, trackId: number) {
+  const response = await fetch(
+    `${env.apiUrl}/pin/${conversationId}/${trackId}`,
+    {
+      method: "PUT",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to pin track");
+  }
   return response.json();
 }
