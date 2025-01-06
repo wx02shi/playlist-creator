@@ -86,6 +86,20 @@ npm start
 # replace the previous two lines with 'npm run dev' for development
 ```
 
+Data:
+You must create the following tables in Supabase:
+
+![Screenshot 2025-01-06 at 12 43 32 AM](https://github.com/user-attachments/assets/6271bd56-fa08-4f18-a55d-6c71c8ab3a66)
+
+Relationships:
+- Messages
+  - convo_id -> FK -> Conversations.id
+- Suggested, Pinned, Discarded
+  - convo_id -> FK -> Conversations.id
+  - track_id -> FK -> Tracks.id
+
+The only data you need to pre-populate is the Tracks. There should also be an outdated pre-processing script in the codebase somewhere. 
+
 ## Demo Video
 [Youtube Video](https://youtu.be/TyVHrBgZdLo)
 
