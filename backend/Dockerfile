@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 8000
 
 # Use Uvicorn with recommended production settings
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080", "--proxy-headers"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}", "--proxy-headers"]
