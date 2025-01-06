@@ -28,15 +28,20 @@ def create_track(
 
 @use_db_client
 def embed_retrieve_tracks(
-    query_embedding: list[float], db_client: Client, threshold=0.0, count=10
+    query_embedding: list[float],
+    convo_id: str,
+    db_client: Client,
+    threshold=0.0,
+    count=10,
 ):
     print("RETRIEVING RELEVANT TRACKS")
     res = db_client.rpc(
-        "embed_search_tracks",
+        "embed_search_v3",
         {
             "query_embedding": query_embedding,
             "match_threshold": threshold,
             "match_count": count,
+            "conversation_id": convo_id,
         },
     ).execute()
     print("RETRIEVED RELEVANT TRACKS", res.data)

@@ -173,6 +173,9 @@ def hydrate_discarded(convo: Conversation, db_client: Client) -> Conversation:
 def update_suggested(
     tracks: list[Audio], convo: Conversation, db_client: Client
 ) -> Conversation:
+    # Delete existing suggestions for this conversation
+    db_client.table("Suggested").delete().eq("convo_id", convo.id).execute()
+
     upserts = [{"convo_id": convo.id, "track_id": track.id} for track in tracks]
     res = db_client.table("Suggested").upsert(upserts).execute()
     data = res.data
