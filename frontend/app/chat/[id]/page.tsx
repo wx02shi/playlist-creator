@@ -2,12 +2,12 @@ import ChatContainer from "@/components/ChatContainer";
 import { getChatHistory, sendChatMessage, type Message } from "@/lib/api";
 
 interface ChatPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     prompt?: string;
-  };
+  }>;
 }
 
 export default async function ChatPage({
