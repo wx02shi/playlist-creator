@@ -8,6 +8,7 @@ from src.services.chat import (
     get_tracks as get_tracks_service,
     get_all_chats as get_all_chats_service,
 )
+from src.services.tracks import pin_track as pin_track_service
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -51,3 +52,8 @@ def get_history(convoId: str):
 @app.get("/all-chats")
 def get_all_chats():
     return get_all_chats_service()
+
+
+@app.put("/pin/{convoId}/{trackId}")
+def pin_track(convoId: str, trackId: str):
+    return pin_track_service(convoId, trackId)

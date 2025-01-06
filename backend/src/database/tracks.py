@@ -46,3 +46,15 @@ def embed_retrieve_tracks(
     ).execute()
     print("RETRIEVED RELEVANT TRACKS", res.data)
     return res.data
+
+
+@use_db_client
+def pin_track_db(convo_id: str, track_id: int, db_client: Client):
+    res = (
+        db_client.table("Pinned")
+        .upsert(
+            {"convo_id": convo_id, "track_id": track_id},
+        )
+        .execute()
+    )
+    return res.data[0]

@@ -181,3 +181,15 @@ def update_suggested(
     data = res.data
     convo = hydrate_suggested(convo, db_client=db_client)
     return convo
+
+
+def remove_suggested(trackId: int, convoId: str, db_client: Client):
+    res = (
+        db_client.table("Suggested")
+        .delete()
+        .eq("track_id", trackId)
+        .eq("convo_id", convoId)
+        .execute()
+    )
+    data = res.data
+    return data

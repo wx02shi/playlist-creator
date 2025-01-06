@@ -1,3 +1,4 @@
+import json
 from typing import Optional, Tuple
 from src.clients.retrieval import embed_message, rerank_query
 from src.database.tracks import embed_retrieve_tracks
@@ -31,6 +32,7 @@ async def chat(msg: str, convo_id: str) -> ChatResponse:
 
     if convo.pinned and len(convo.pinned) > 0:
         new_req_summary = _inject_pinned_desc(convo, new_req_summary)
+    print("new_req_summary: ", new_req_summary)
 
     # TODO: re-enable Cohere calls when finalized
     summary_embedding = embed_message(new_req_summary, input_type="search_query")
@@ -89,7 +91,12 @@ def _inject_pinned_desc(convo: Conversation, req_summary: str) -> str:
         }
         for a in convo.pinned
     ]
-    pinned_summary = helper_agent_completion(inject_pinned, pinned)
+    formatted_pinned = "<pinned_tracks>\n[\n"
+    for track in pinned:
+        formatted_pinned += json.dumps(track, indent=4) + ",\n"
+    formatted_pinned += "]\n</pinned_tracks>"
+    pinned_summary = helper_agent_completion(inject_pinned, formatted_pinned)
+    print(formatted_pinned)
     req_summary += (
         "\nThe following is a description of tracks the user has pinned. These are a stronger indication of their preference:\n"
         + pinned_summary
