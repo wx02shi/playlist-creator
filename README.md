@@ -62,6 +62,8 @@ Backend: FastAPI
 
 ## Running Locally
 
+This project has been taken offline, since it costs me money. A video demo is provided below, and you can also run it yourself by following these instructions.
+
 Create your own `.env` files following the `.example.env` files present in **BOTH** `/frontend` and `/backend`.
 
 - Almost all resources are completely free of charge
